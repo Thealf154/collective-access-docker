@@ -8,10 +8,11 @@ services:
     ports:
       - 33061:3306
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: providence
-      MYSQL_USER: providence
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${CA_ROOT_PASSWORD}
+      MYSQL_HOST: ${CA_DB_HOST}
+      MYSQL_USER: ${CA_DB_USER}
+      MYSQL_DATABASE: ${CA_DB_DATABASE}
+      MYSQL_PASSWORD: ${CA_DB_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -34,6 +35,14 @@ services:
     build: .
     container_name: ca_web
     restart: always
+    environment:
+      CA_DB_HOST: ${CA_DB_HOST}
+      CA_DB_USER: ${CA_DB_USER}
+      CA_DB_DATABASE: ${CA_DB_DATABASE}
+      CA_DB_PASSWORD: ${CA_DB_PASSWORD}
+      CA_REDIS_HOST: ${CA_REDIS_HOST}
+      CA_REDIS_PORT: ${CA_REDIS_PORT}
+      CA_REDIS_DB: ${CA_REDIS_DB}
     depends_on:
       - db
       - redis

@@ -1,3 +1,3 @@
 # TODO
 
-- [] Add redis server
+- [] Read credentials from .env file
