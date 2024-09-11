@@ -1,0 +1,58 @@
+services:
+  # Database service (MySQL)
+  db:
+    image: mysql:5.7
+    container_name: ca_db
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 33061:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: providence
+      MYSQL_USER: providence
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ca_lan
+
+  redis:
+    image: redis:6
+    container_name: ca_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ca_lan
+
+  # Web service (Apache with PHP)
+  web:
+    build: .
+    container_name: ca_web
+    restart: always
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "80:80" 
+    volumes:
+      - local-caa:/var/www/html
+    networks:
+      - ca_lan
+
+# Volumes for persisting data
+volumes:
+  db_data:
+    driver: local
+  local-caa:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  ca_lan:
+    driver: bridge
