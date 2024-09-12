@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and install required packages
 RUN apt-get update && apt-get install -y \
+    git \
     apache2 \
     php \
     libapache2-mod-php7.4  \ 
@@ -43,7 +44,7 @@ RUN a2enmod rewrite &&  \
 
 ###### Install CollectiveAccess
 WORKDIR /var/www/html
-COPY ca ./ca
+RUN git clone https://github.com/collectiveaccess/providence ca
 RUN rm -f ./ca/setup.php
 COPY setup.php ./ca
 
@@ -54,7 +55,7 @@ RUN chown -R www-data app/tmp app/log media vendor &&  \
 
 ###### Install pawtucket
 WORKDIR /var/www/html
-COPY pawtucket ./pawtucket
+RUN git clone https://github.com/collectiveaccess/pawtucket2 pawtucket
 RUN rm -f ./pawtucket/setup.php
 COPY setup.php ./pawtucket
 
