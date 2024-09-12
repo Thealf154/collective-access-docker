@@ -27,19 +27,19 @@
 #
 
 if (!defined("__CA_DB_HOST__")) {
-	define("__CA_DB_HOST__", 'db');
+	define("__CA_DB_HOST__", getenv('CA_DB_HOST') ?: '');
 }
 
 if (!defined("__CA_DB_USER__")) {
-	define("__CA_DB_USER__", 'providence');
+	define("__CA_DB_USER__", getenv('CA_DB_USER') ?: '');
 }
 
 if (!defined("__CA_DB_PASSWORD__")) {
-	define("__CA_DB_PASSWORD__", 'password');
+	define("__CA_DB_PASSWORD__", getenv('CA_DB_PASSWORD') ?: '');
 }
 
 if (!defined("__CA_DB_DATABASE__")) {
-	define("__CA_DB_DATABASE__", 'providence');
+	define("__CA_DB_DATABASE__", getenv('CA_DB_DATABASE') ?: '');
 }
 
 # __CA_APP_DISPLAY_NAME__ = the name of your system, for display purposes
@@ -90,7 +90,7 @@ date_default_timezone_set('America/New_York');
 # available at http://docs.collectiveaccess.org
 #
 if (!defined("__CA_QUEUE_ENABLED__")) {
-	define("__CA_QUEUE_ENABLED__", 0);
+	define("__CA_QUEUE_ENABLED__", true);
 }
 
 
@@ -136,7 +136,7 @@ if (!defined("__CA_APP_NAME__")) {
 # __CA_GOOGLE_MAPS_KEY__ = A Google Maps key to use for mapping and geocoding featured (optional)
 #
 if (!defined("__CA_GOOGLE_MAPS_KEY__")) {
-	define("__CA_GOOGLE_MAPS_KEY__", "");
+	define("__CA_GOOGLE_MAPS_KEY__", getenv('CA_GOOGLE_MAPS_KEY') ?: '');
 }
 
 
@@ -172,7 +172,7 @@ if (!defined("__CA_GOOGLE_MAPS_KEY__")) {
 # may see critical errors. sqlite requires the PHP PDO extension and a working install
 # of sqlite. This is not guaranteed to be present on your server, but often is.
 if (!defined('__CA_CACHE_BACKEND__')) { 
-	define('__CA_CACHE_BACKEND__', 'file');
+	define('__CA_CACHE_BACKEND__', 'redis');
 }
 
 # Options for the caching back-ends you may wish to set include:
@@ -184,17 +184,17 @@ if (!defined('__CA_CACHE_BACKEND__')) {
 
 # __CA_REDIS_HOST__ = Hostname of redis server
 if (!defined("__CA_REDIS_HOST__")) {
-	define("__CA_REDIS_HOST__", 'redis');
+	define("__CA_REDIS_HOST__", getenv('CA_REDIS_HOST') ?: '');
 }
 
 # __CA_REDIS_PORT__ = Port of redis server
 if (!defined("__CA_REDIS_PORT")) {
-	define("__CA_REDIS_PORT", '6379');
+	define("__CA_REDIS_PORT", getenv('CA_REDIS_PORT') ?: '');
 }
 
 # __CA_REDIS_DB__ = redis database index (typically a number between 0 and 15) 
 if (!defined("__CA_REDIS_DB")) {
-	define("__CA_REDIS_DB", '0');
+	define("__CA_REDIS_DB", getenv('CA_REDIS_DB') ?: '');
 }
 
 # --------------------------------------------------------------------------------------------

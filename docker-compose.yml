@@ -43,6 +43,7 @@ services:
       CA_REDIS_HOST: ${CA_REDIS_HOST}
       CA_REDIS_PORT: ${CA_REDIS_PORT}
       CA_REDIS_DB: ${CA_REDIS_DB}
+      CA_GOOGLE_MAPS_KEY: ${CA_REDIS_DB}
     depends_on:
       - db
       - redis
